@@ -1,8 +1,4 @@
--- Exported from QuickDBD: https://www.quickdatabasediagrams.com/
--- Link to schema: https://app.quickdatabasediagrams.com/#/d/plsLpu
--- NOTE! If you have used non-SQL datatypes in your design, you will have to change these here.
 
--- Table is not showing anything
 CREATE TABLE Department (
     dept_no VARCHAR(10) PRIMARY KEY NOT NULL,
     dept_name VARCHAR(255) NOT NULL
@@ -10,7 +6,6 @@ CREATE TABLE Department (
 
 SELECT * FROM Department;
 
--- Table is not showing anything
 CREATE TABLE Employees (
     emp_no INTEGER PRIMARY KEY NOT NULL,
     emp_title_id VARCHAR(255) NOT NULL,
@@ -23,15 +18,14 @@ CREATE TABLE Employees (
 
 SELECT * FROM Employees;
 
--- Table does not show anything
 CREATE TABLE Salarys (
-    salarysemp_no INTEGER PRIMARY KEY NOT NULL,
-    salary INTEGER NOT NULL
+    emp_no INTEGER NOT NULL,
+  	FOREIGN KEY (emp_no) REFERENCES Employees(emp_no),
+	salary INTEGER NOT NULL
 );
 
 SELECT * FROM Salarys;
 
--- Table does not show anything
 CREATE TABLE Department_Employee (
     emp_no INTEGER NOT NULL,
 	FOREIGN KEY (emp_no) REFERENCES Employees(emp_no),
@@ -52,7 +46,6 @@ CREATE TABLE Department_Manager (
 
 SELECT * FROM Department_Manager;
 
--- Table works fine
 CREATE TABLE Titles (
     title_id VARCHAR(255) PRIMARY KEY NOT NULL,
     title VARCHAR(255) NOT NULL
@@ -60,5 +53,25 @@ CREATE TABLE Titles (
 
 SELECT* FROM Titles;
 
+--List the employee number, last name, first name, sex, and salary of each employee.
+SELECT emp_no, last_name, first_name, sex
+FROM Employees
+WHERE emp_no IN (
+	SELECT emp_no
+	FROM Salary
+	WHERE salary
+);
 
+--List the first name, last name, and hire date for the employees who were hired in 1986.
 
+--List the manager of each department along with their department number, department name, employee number, last name, and first name.
+
+--List the department number for each employee along with that employee’s employee number, last name, first name, and department name.
+
+--List first name, last name, and sex of each employee whose first name is Hercules and whose last name begins with the letter B.
+
+--List each employee in the Sales department, including their employee number, last name, and first name.
+
+--List each employee in the Sales and Development departments, including their employee number, last name, first name, and department name.
+
+--List the frequency counts, in descending order, of all the employee last names (that is, how many employees share each last name).
